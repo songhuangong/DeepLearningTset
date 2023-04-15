@@ -1,0 +1,81 @@
+﻿<Window x:Class="ROIWindow.Views.ProprecessImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ROIWindow.Views"
+        xmlns:swt="clr-namespace:ROIWindow.Views;assembly=ROIWindow"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:wpfcv="clr-namespace:WpfConverter;assembly=WpfConverter"
+        xmlns:ctr="clr-namespace:CommControlLibrary;assembly=CommControlLibrary"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="ProprecessImageWindow" Height="450" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="3" >
+            <Button Content="对比原图" Grid.Row="1" Margin="5" PreviewMouseUp="Button_PreviewMouseUp" PreviewMouseDown="Button_PreviewMouseDown"/>
+            <DockPanel>
+                <TextBlock Margin="5">选择通道</TextBlock>
+                <ComboBox SelectedValue="{Binding ColorChannel}" SelectedValuePath="Content">
+                    <ComboBoxItem>1</ComboBoxItem>
+                    <ComboBoxItem>2</ComboBoxItem>
+                    <ComboBoxItem>3</ComboBoxItem>
+                </ComboBox>
+            </DockPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <RadioButton IsChecked="{Binding SelectGlobal}" GroupName="1">全局阈值</RadioButton>
+                <RadioButton IsChecked="True" GroupName="1">动态阈值</RadioButton>
+            </StackPanel>
+
+            <ctr:RangeSelectionControl RangeTitle="全局阈值" LeftValueChange="LeftThresholdChange"
+                                       RightValueChange="RightThresholdChange"
+                                       LeftMin="0" LeftMax="255" RightMin="0" RightMax="255" IntBool="True" >
+                <!--<i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LeftValueChange">
+                        <prism:InvokeCommandAction Command="{Binding ThresholdCmd}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="RightValueChange">
+                        <prism:InvokeCommandAction Command="{Binding ThresholdCmd}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>-->
+            </ctr:RangeSelectionControl>
+            <GroupBox Header="动态阈值">
+                <StackPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock>均值滤波范围：</TextBlock>
+                        <TextBox Width="50" Text="{Binding MeanWith}" Margin="5,0,0,0"></TextBox>
+                        <TextBox Width="50" Text="{Binding MeanHigh}" Margin="5,0,0,0"></TextBox>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock>名暗选择：</TextBlock>
+                        <ComboBox SelectedValuePath="Content"  SelectedValue="{Binding LightDark}" Margin="5,0,0,0">
+                            <ComboBoxItem>light</ComboBoxItem>
+                            <ComboBoxItem>dark</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel Margin="3">
+                        <TextBlock>明暗偏移值：</TextBlock>
+                        <TextBox DockPanel.Dock="Right" Width="50" Text="{Binding OffsetLightDark}" Margin="5,0,0,0"></TextBox>
+                        <Slider Minimum="0" Maximum="255"  ValueChanged="OffsetChanged"
+                                Value="{Binding OffsetLightDark}" ToolTip="{Binding OffsetLightDark}"
+                                TickFrequency="0.1"  TickPlacement="BottomRight" IsSnapToTickEnabled="True" >
+                            <!--<i:Interaction.Triggers>
+                                <i:EventTrigger EventName="ValueChanged">
+                                    <prism:InvokeCommandAction Command="{Binding OffsetChangedCmd}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>-->
+                        </Slider>
+
+                    </DockPanel>
+                </StackPanel>
+
+            </GroupBox>
+        </StackPanel>
+        <Button x:Name="btn_run" Grid.Row="1" Click="btn_run_Click">运行</Button>
+    </Grid>
+</Window>

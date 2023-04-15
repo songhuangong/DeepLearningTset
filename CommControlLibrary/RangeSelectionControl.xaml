@@ -1,0 +1,32 @@
+<UserControl x:Class="CommControlLibrary.RangeSelectionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CommControlLibrary"
+             x:Name="uu"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="400">
+    <GroupBox Header="{Binding RangeTitle, ElementName=uu}">
+        <Grid>
+            <StackPanel>
+                <DockPanel>
+                    <TextBox  Margin="3" DockPanel.Dock="Right" MinWidth="50"  Text="{Binding LeftValue, ElementName=uu}"></TextBox>
+                    <Slider x:Name="left_slider" DockPanel.Dock="Right" Margin="3"  
+                            Value="{Binding LeftValue, ElementName=uu}" 
+                            Minimum="{Binding LeftMin, ElementName=uu}" 
+                            Maximum="{Binding LeftMax, ElementName=uu}" 
+                            ValueChanged="left_slider_ValueChanged"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBox Margin="3" DockPanel.Dock="Right" MinWidth="50" Text="{Binding RightValue, ElementName=uu}"></TextBox>
+                    <Slider x:Name="right_slider" DockPanel.Dock="Right" Margin="3"
+                            Value="{Binding RightValue, ElementName=uu}" 
+                            Minimum="{Binding RightMin, ElementName=uu}" 
+                            Maximum="{Binding RightMax, ElementName=uu}" 
+                            ValueChanged="right_slider_ValueChanged"/>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+    </GroupBox>
+</UserControl>

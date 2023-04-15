@@ -1,0 +1,19 @@
+﻿using Prism.Events;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BaseLibrary.MyEvent
+{
+    public class LogEvent : PubSubEvent<string>
+    {
+
+    }
+
+    public class TcpCliLogEvent : PubSubEvent<string>
+    {
+
+    }
+}
